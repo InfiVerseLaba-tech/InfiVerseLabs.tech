@@ -1,0 +1,199 @@
+
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import AnimatedSection from '../components/ui/AnimatedSection';
+import GlowCard from '../components/ui/GlowCard';
+import GradientButton from '../components/ui/GradientButton';
+import GradientText from '../components/ui/GradientText';
+import { SERVICES, PROJECTS } from '../constants';
+import { Cpu, Zap, ShieldCheck, Layers, ArrowRight } from '../components/icons/Icons';
+import {
+  Aws, Azure, Gcp, Kubernetes, Terraform, ReactLogo, Python, Openai
+} from '../components/icons/TechLogos';
+
+// Simplified Globe Animation Component
+const AnimatedGlobe = () => {
+    return (
+        <div className="relative w-64 h-64 md:w-96 md:h-96">
+            <div className="absolute inset-0 border-2 border-sky-400/30 rounded-full animate-spin-slow"></div>
+            <div className="absolute inset-2 border border-sky-400/20 rounded-full animate-spin-slow animation-delay-3000"></div>
+            <div className="absolute inset-4 border border-sky-400/10 rounded-full animate-spin-slow animation-delay-5000"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 md:w-48 md:h-48 bg-gradient-to-br from-sky-500/20 to-violet-500/20 rounded-full filter blur-xl"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sky-300">
+                <Layers className="w-16 h-16 md:w-24 md:h-24 opacity-50" />
+            </div>
+        </div>
+    );
+};
+
+
+const HomePage: React.FC = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide(prev => (prev === PROJECTS.length - 1 ? 0 : prev + 1));
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const services = Object.values(SERVICES).slice(0, 4);
+
+  return (
+    <div className="overflow-hidden">
+      {/* Hero Section */}
+      <section className="min-h-screen flex items-center justify-center pt-20 relative">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+            <AnimatedSection>
+                <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter">
+                    Infinite <GradientText>Innovation.</GradientText>
+                    <br />
+                    One Universe.
+                </h1>
+            </AnimatedSection>
+            <AnimatedSection delay={200}>
+                <p className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-slate-300">
+                    Empowering businesses with Cloud, AI, and Full-Stack solutions that scale.
+                </p>
+            </AnimatedSection>
+            <AnimatedSection delay={400} className="mt-10 flex flex-col sm:flex-row gap-4 items-center justify-center">
+                <GradientButton href="/contact">Get Started</GradientButton>
+                <Link to="/services" className="px-8 py-3 text-lg font-bold text-white rounded-lg hover:bg-slate-800/50 transition-colors duration-300">View Our Services</Link>
+            </AnimatedSection>
+            <AnimatedSection delay={600} className="mt-12 md:mt-20">
+                <AnimatedGlobe />
+            </AnimatedSection>
+        </div>
+      </section>
+
+      {/* Services at a Glance */}
+      <section className="py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <AnimatedSection>
+                <h2 className="font-heading text-4xl md:text-5xl font-bold text-center">InfiVerse at a <GradientText>Glance</GradientText></h2>
+                <p className="mt-4 max-w-2xl mx-auto text-center text-slate-300">
+                    We deliver comprehensive tech solutions designed for the future.
+                </p>
+            </AnimatedSection>
+            <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {services.map((service, index) => (
+                    <AnimatedSection key={service.id} delay={index * 150}>
+                        <Link to={service.href}>
+                            <GlowCard className="h-full group">
+                                <h3 className="font-heading text-2xl font-bold text-sky-300">{service.title}</h3>
+                                <p className="mt-2 text-slate-400">{service.description}</p>
+                                <div className="mt-4 text-sky-400 flex items-center gap-2 font-semibold transition-transform duration-300 group-hover:translate-x-1">
+                                    Learn More <ArrowRight className="w-4 h-4" />
+                                </div>
+                            </GlowCard>
+                        </Link>
+                    </AnimatedSection>
+                ))}
+            </div>
+        </div>
+      </section>
+
+      {/* Why Choose InfiVerse */}
+      <section className="py-20 bg-slate-900/30">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection>
+            <h2 className="font-heading text-4xl md:text-5xl font-bold text-center">Why Choose <GradientText>InfiVerse</GradientText>?</h2>
+            <p className="mt-4 max-w-2xl mx-auto text-center text-slate-300">
+              We're not just developers; we're architects of innovation, building robust and scalable solutions.
+            </p>
+          </AnimatedSection>
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { icon: Zap, title: "Faster Deployment", text: "Automated CI/CD pipelines for rapid and reliable releases." },
+              { icon: Cpu, title: "AI-first Mindset", text: "Leveraging AI to solve complex problems and drive growth." },
+              { icon: ShieldCheck, title: "Secure Architecture", text: "Security is built-in, not bolted-on, for end-to-end protection." },
+              { icon: Layers, title: "Cloud-native Builds", text: "Harnessing the full power of the cloud for scalability and resilience." }
+            ].map((item, index) => (
+              <AnimatedSection key={item.title} delay={index * 150}>
+                <GlowCard>
+                  <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-sky-500/20 to-violet-500/20 rounded-lg">
+                    <item.icon className="w-8 h-8 text-sky-300" />
+                  </div>
+                  <h3 className="mt-4 font-heading text-2xl font-bold">{item.title}</h3>
+                  <p className="mt-2 text-slate-400">{item.text}</p>
+                </GlowCard>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Case Study Slider */}
+      <section className="py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection>
+            <h2 className="font-heading text-4xl md:text-5xl font-bold text-center">Real-world <GradientText>Impact</GradientText></h2>
+            <p className="mt-4 max-w-2xl mx-auto text-center text-slate-300">
+              Explore how we've transformed businesses with our innovative solutions.
+            </p>
+          </AnimatedSection>
+          <AnimatedSection delay={200} className="mt-12 relative h-96">
+            {PROJECTS.map((project, index) => (
+              <div key={project.id} className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}>
+                <div className="relative w-full h-full rounded-2xl overflow-hidden">
+                  <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/70 to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 p-8 text-white">
+                    <h3 className="font-heading text-3xl font-bold">{project.title}</h3>
+                    <p className="text-xl mt-2 text-slate-300">{project.client}</p>
+                    <p className="mt-4 max-w-xl text-2xl font-semibold text-sky-300">
+                      "{project.metric}"
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                {PROJECTS.map((_, index) => (
+                    <button key={index} onClick={() => setCurrentSlide(index)} className={`w-3 h-3 rounded-full transition-colors ${index === currentSlide ? 'bg-sky-400' : 'bg-slate-600'}`}></button>
+                ))}
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* Trust Bar */}
+      <section className="py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <AnimatedSection>
+                <h3 className="text-center text-xl text-slate-400 font-semibold">Technologies We Trust</h3>
+                <div className="mt-8 flex justify-center items-center gap-8 md:gap-12 flex-wrap">
+                    {[Aws, Azure, Gcp, Kubernetes, Terraform, ReactLogo, Python, Openai].map((Icon, index) => (
+                        <Icon key={index} className="h-12 w-auto text-slate-500 hover:text-white transition-colors" />
+                    ))}
+                </div>
+            </AnimatedSection>
+        </div>
+      </section>
+      
+      {/* Final CTA */}
+      <section className="py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <AnimatedSection>
+                <div className="relative p-12 text-center bg-slate-800/50 rounded-2xl border border-slate-700 overflow-hidden">
+                    <div className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-[radial-gradient(circle_farthest-side,rgba(56,189,248,0.15),rgba(255,255,255,0))] animate-spin-slow"></div>
+                    <div className="relative">
+                        <h2 className="font-heading text-4xl md:text-5xl font-bold">
+                            Let's build your universe of <GradientText>innovation.</GradientText>
+                        </h2>
+                        <p className="mt-4 max-w-2xl mx-auto text-lg text-slate-300">
+                            Ready to transform your vision into reality? Our team is here to help you navigate your digital journey.
+                        </p>
+                        <div className="mt-8">
+                            <GradientButton href="/contact">Start a Project</GradientButton>
+                        </div>
+                    </div>
+                </div>
+            </AnimatedSection>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default HomePage;
