@@ -5,6 +5,7 @@ import AnimatedSection from '../components/ui/AnimatedSection';
 import GlowCard from '../components/ui/GlowCard';
 import GradientButton from '../components/ui/GradientButton';
 import GradientText from '../components/ui/GradientText';
+import ThreeBackground from '../components/background/ThreeBackground';
 import { SERVICES, PROJECTS } from '../constants';
 import { Cpu, Zap, ShieldCheck, Layers, ArrowRight } from '../components/icons/Icons';
 import {
@@ -41,6 +42,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="overflow-hidden">
+      <ThreeBackground />
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center pt-20 relative">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
