@@ -12,11 +12,11 @@ interface GradientButtonProps {
 
 const GradientButton: React.FC<GradientButtonProps> = ({ children, href, onClick, fullWidth = false, type = 'button' }) => {
   const commonClasses = `
-    relative inline-flex items-center justify-center px-8 py-3 
-    text-lg font-bold text-white rounded-lg 
+    relative inline-flex items-center justify-center px-6 xs:px-7 sm:px-8 py-2.5 xs:py-3 sm:py-3
+    text-sm xs:text-base sm:text-lg font-bold text-white rounded-lg 
     bg-gradient-to-r from-sky-500 to-violet-500 
     transition-all duration-300 ease-in-out group
-    overflow-hidden
+    overflow-hidden whitespace-nowrap min-h-[44px]
     ${fullWidth ? 'w-full' : ''}
   `;
 

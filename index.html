@@ -4,21 +4,52 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="description" content="InfiVerseLabs.tech – Infinite Innovation. One Universe." />
     <title>InfiVerseLabs.tech – Infinite Innovation. One Universe.</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
+      :root {
+        --tw-scroll-behavior: smooth;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
         font-family: 'Inter', sans-serif;
         background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
         color: #f8fafc;
         overflow-x: hidden;
       }
+      
       .font-heading {
         font-family: 'Space Grotesk', sans-serif;
+      }
+
+      /* Responsive text utilities */
+      @media (max-width: 640px) {
+        body {
+          font-size: 14px;
+        }
+      }
+
+      /* Enable smooth scrolling */
+      * {
+        scroll-behavior: smooth;
+      }
+
+      /* Fix for mobile viewport issues */
+      @media (max-width: 768px) {
+        .container {
+          padding-left: 0.75rem;
+          padding-right: 0.75rem;
+        }
       }
     </style>
   <script type="importmap">
