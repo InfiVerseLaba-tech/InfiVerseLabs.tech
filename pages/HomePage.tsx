@@ -12,19 +12,45 @@ import {
   Aws, Azure, Gcp, Kubernetes, Terraform, ReactLogo, Python, Openai
 } from '../components/icons/TechLogos';
 
-// Simplified Globe Animation Component
+// Animated Globe / Universe component (futuristic sphere behind hero heading)
 const AnimatedGlobe = () => {
-    return (
-        <div className="relative w-64 h-64 md:w-96 md:h-96">
-            <div className="absolute inset-0 border-2 border-sky-400/30 rounded-full animate-spin-slow"></div>
-            <div className="absolute inset-2 border border-sky-400/20 rounded-full animate-spin-slow animation-delay-3000"></div>
-            <div className="absolute inset-4 border border-sky-400/10 rounded-full animate-spin-slow animation-delay-5000"></div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 md:w-48 md:h-48 bg-gradient-to-br from-sky-500/20 to-violet-500/20 rounded-full filter blur-xl"></div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sky-300">
-                <Layers className="w-16 h-16 md:w-24 md:h-24 opacity-50" />
-            </div>
-        </div>
-    );
+  // We'll build a layered CSS globe with subtle rotation and a slightly transparent look
+  // to sit behind the hero heading text and not obstruct readability.
+  return (
+    <div className="relative w-56 h-56 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px] pointer-events-none">
+      {/* Rotating ring */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="w-full h-full rounded-full border border-sky-400/20 opacity-60" style={{ animation: 'spin 36s linear infinite' }} />
+      </div>
+
+      {/* Subtle second ring */}
+      <div className="absolute inset-8 rounded-full border border-violet-500/10 opacity-60 animate-[spin_80s_linear_infinite]" />
+
+      {/* The globe sphere */}
+      <div
+        className="absolute inset-4 rounded-full overflow-hidden"
+        style={{
+          background: 'radial-gradient(closest-side, rgba(255,255,255,0.12), rgba(148,163,184,0.05) 40%, rgba(99,102,241,0.06) 75%)',
+          transform: 'translateZ(0) rotateZ(14deg)',
+          opacity: 0.28,
+          backdropFilter: 'blur(6px)'
+        }}
+      >
+        {/* Inner rotation overlay to create a globe-like dynamic */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: 'radial-gradient(circle at 20% 25%, rgba(255,255,255,0.12), transparent 6%), radial-gradient(circle at 70% 75%, rgba(0,0,0,0.06), transparent 12%), radial-gradient(circle at 50% 50%, rgba(99,102,241,0.06), transparent 24%)',
+            transformOrigin: '50% 50%',
+            animation: 'spin 35s linear infinite'
+          }}
+        />
+      </div>
+
+      {/* Glow layer to enhance cosmic look */}
+      <div className="absolute -inset-8 rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(99,102,241,0.08),_rgba(99,102,241,0))] opacity-80 filter blur-xl" />
+    </div>
+  );
 };
 
 
@@ -40,31 +66,33 @@ const HomePage: React.FC = () => {
 
   const services = Object.values(SERVICES).slice(0, 4);
 
-  return (
+    return (
     <div className="overflow-hidden">
       <ThreeBackground />
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center pt-20 relative">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+      <section className="min-h-screen flex items-center justify-center pt-32 md:pt-40 lg:pt-48 pb-12 relative">
+        {/* Hero globe sits behind the heading content - centered in the section */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+          <AnimatedGlobe />
+        </div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center relative z-10">
             <AnimatedSection>
-                <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter">
-                    Infinite <GradientText>Innovation.</GradientText>
-                    <br />
-                    One Universe.
-                </h1>
+          <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tighter text-center">
+            Infinite <GradientText>Innovation.</GradientText>
+            <br />
+            One Universe.
+          </h1>
             </AnimatedSection>
             <AnimatedSection delay={200}>
-                <p className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-slate-300">
-                    Empowering businesses with Cloud, AI, and Full-Stack solutions that scale.
-                </p>
+          <p className="mt-6 max-w-2xl mx-auto text-base md:text-lg text-slate-300 text-center">
+            Empowering businesses with Cloud, AI, and Full-Stack solutions that scale.
+          </p>
             </AnimatedSection>
-            <AnimatedSection delay={400} className="mt-10 flex flex-col sm:flex-row gap-4 items-center justify-center">
-                <GradientButton href="/contact">Get Started</GradientButton>
-                <Link to="/services" className="px-8 py-3 text-lg font-bold text-white rounded-lg hover:bg-slate-800/50 transition-colors duration-300">View Our Services</Link>
-            </AnimatedSection>
-            <AnimatedSection delay={600} className="mt-12 md:mt-20">
-                <AnimatedGlobe />
-            </AnimatedSection>
+        <AnimatedSection delay={400} className="mt-10 flex flex-col sm:flex-row gap-4 items-center justify-center">
+          <GradientButton href="/contact">Get Started</GradientButton>
+          <Link to="/services" className="px-8 py-3 text-base md:text-lg font-bold text-white rounded-lg hover:bg-slate-800/50 transition-colors duration-300">View Our Services</Link>
+        </AnimatedSection>
+            {/* globe was moved behind heading; no inline globe here to keep layout unchanged */}
         </div>
       </section>
 
